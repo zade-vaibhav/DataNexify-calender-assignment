@@ -4,6 +4,7 @@ const cors =require("cors");
 const app = express();
 const bodyParser = require("body-parser");
 const connnectdb = require("./config/db");
+const { notFound, errorHandler } = require("./middlewere/errorMiddlewere");
 
 app.use(cors())
 app.use(bodyParser.json())
@@ -11,6 +12,10 @@ app.use(bodyParser.json())
 app.get("/",(req,res)=>{
     res.send("server is running")
 })
+
+
+app.use(notFound)
+app.use(errorHandler)
 
 connnectdb()
 
