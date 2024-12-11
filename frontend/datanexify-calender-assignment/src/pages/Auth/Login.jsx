@@ -1,35 +1,41 @@
-import React from 'react'
-import { GoogleLogin } from '@react-oauth/google';
+import React from "react";
+const clientId = import.meta.env.CLIENT_ID
 
-function Login() {
-
-     // Google Login Success
-  const handleGoogleLoginSuccess = async (response) => {
-    try {
-     console.log(response)
-    } catch (error) {
-     console.log(err)
-    }
+const Login = () => {
+    console.log(clientId)
+    const generateGoogleOAuthURL = () => {
+        
+      const clientID = "1009323095218-rtmecje2fqu3qpqsnt6k1ogq48qhqbdd.apps.googleusercontent.com"; // Replace with your Google client ID
+      const redirectURI = "http://localhost:5173"; // Replace with your redirect URI
+      const responseType = "token";
+      const scopes = [
+        "https://www.googleapis.com/auth/calendar","openid","email","profile"
+      ];
+      const state = Math.random().toString(36).substring(2); // Simple random state for CSRF protection
+    
+      const baseURL = "https://accounts.google.com/o/oauth2/v2/auth";
+      const params = new URLSearchParams({
+        client_id: clientID,
+        redirect_uri: redirectURI,
+        response_type: responseType,
+        scope: scopes.join(" "),
+        state: state,
+        flowName: "GeneralOAuthFlow"
+      });
+    
+      return `${baseURL}?${params.toString()}`;
+    };
+    
+  const handleLogin = () => {
+    const googleOAuthURL = generateGoogleOAuthURL();
+    window.location.href = googleOAuthURL; // Redirect the user to Google's OAuth 2.0 endpoint
   };
 
-  // Google Login Failure
-  const handleGoogleLoginFailure = (error) => {
-    console.error("Google OAuth Error:", error);
-   
-  };
-    return (
-        <div>
-            <GoogleLogin
-                onSuccess={handleGoogleLoginSuccess}
-                onError={handleGoogleLoginFailure}
-                theme="outline"
-                text="continue_with"
-                responseType="code"
-                accessType="offline"
-                scope="openid email prodile https://www.googleapis.com/auth/calendar"
-            />
-        </div>
-    )
-}
+  return (
+    <div>
+      <button onClick={handleLogin}>Login with Google</button>
+    </div>
+  );
+};
 
-export default Login
+export default Login;
