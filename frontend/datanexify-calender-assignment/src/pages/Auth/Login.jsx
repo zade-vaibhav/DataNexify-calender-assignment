@@ -1,17 +1,17 @@
 import React from "react";
-const clientId = import.meta.env.CLIENT_ID
+const clientId = import.meta.env.VITE_CLIENT_ID
+const redirectUrl = import.meta.env.VITE_REDIRECT_URL
 
 const Login = () => {
-    console.log(clientId)
     const generateGoogleOAuthURL = () => {
         
-      const clientID = "1009323095218-rtmecje2fqu3qpqsnt6k1ogq48qhqbdd.apps.googleusercontent.com"; // Replace with your Google client ID
-      const redirectURI = "http://localhost:5173"; // Replace with your redirect URI
+      const clientID = clientId
+      const redirectURI = redirectUrl;
       const responseType = "token";
       const scopes = [
         "https://www.googleapis.com/auth/calendar","openid","email","profile"
       ];
-      const state = Math.random().toString(36).substring(2); // Simple random state for CSRF protection
+      const state = Math.random().toString(36).substring(2); 
     
       const baseURL = "https://accounts.google.com/o/oauth2/v2/auth";
       const params = new URLSearchParams({
@@ -28,7 +28,7 @@ const Login = () => {
     
   const handleLogin = () => {
     const googleOAuthURL = generateGoogleOAuthURL();
-    window.location.href = googleOAuthURL; // Redirect the user to Google's OAuth 2.0 endpoint
+    window.location.href = googleOAuthURL; 
   };
 
   return (

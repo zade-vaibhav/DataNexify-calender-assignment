@@ -1,0 +1,64 @@
+/* MyEvents.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.my-events {
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #FFF;
+}
+
+.status {
+    text-align: center;
+    font-size: 16px;
+    color: red;
+}
+
+.error {
+    text-align: center;
+    font-size: 16px;
+    color: red;
+}
+
+.events-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.events-table th, .events-table td {
+    text-align: left;
+    padding: 12px;
+    border: 1px solid gray;
+}
+
+.events-table th {
+    background-color: gray;
+    font-weight: bold;
+    color: white
+}
+
+.events-table tr:hover {
+    background-color: gray;
+}

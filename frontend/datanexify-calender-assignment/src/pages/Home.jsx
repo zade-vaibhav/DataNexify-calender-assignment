@@ -1,30 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import CreateEventPage from './CreatEventPage';
+import MyEvents from './MyEvents';
 
 function Home() {
     const [accessToken, setAccessToken] = useState(null);
     const [userInfo, setUserInfo] = useState(null);
-    const navigate = useNavigate(); // For navigation to login page
+    const navigate = useNavigate(); 
 
     useEffect(() => {
-        // Extract the hash part of the URL
+
         const hash = window.location.hash;
 
         let token = null;
 
         if (hash) {
-            const params = new URLSearchParams(hash.substring(1)); // Remove the '#' at the start
-            token = params.get('access_token'); // Get the 'access_token' parameter
+            const params = new URLSearchParams(hash.substring(1)); 
+            token = params.get('access_token'); 
             if (token) {
-                localStorage.setItem("accessToken", token); // Store the access token in localStorage
-                setAccessToken(token); // Store the access token in state
-                // Remove the hash from the URL
+                localStorage.setItem("accessToken", token);
+                setAccessToken(token); 
+               
                 window.history.replaceState(null, null, window.location.pathname);
             }
         } else {
-            token = localStorage.getItem("accessToken"); // Get the token from localStorage
+            token = localStorage.getItem("accessToken"); 
             if (!token) {
-                navigate('/login'); // Redirect to login if no token is found
+                navigate('/login'); 
                 return;
             }
         }
@@ -63,6 +65,7 @@ function Home() {
             });
             if (response.ok) {
                 const data = await response.json();
+                console.log(data,"  hello")
                 setUserInfo(data.user); // Store user info in state
             } else {
                 console.error('Failed to fetch user info:', response.statusText);
@@ -75,21 +78,8 @@ function Home() {
     return (
         <div>
             <h1>Home</h1>
-            {accessToken ? (
-                <div>
-                    <p>Access Token is securely stored</p>
-                    {userInfo ? (
-                        <div>
-                            <p>Welcome, {userInfo.name}!</p>
-                            <p>Email: {userInfo.email}</p>
-                        </div>
-                    ) : (
-                        <p>Loading user information...</p>
-                    )}
-                </div>
-            ) : (
-                <p>No Access Token Found</p>
-            )}
+            <CreateEventPage/>
+            <MyEvents/>
         </div>
     );
 }
