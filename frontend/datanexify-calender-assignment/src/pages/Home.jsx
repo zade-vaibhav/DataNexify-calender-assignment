@@ -6,17 +6,19 @@ import MyEvents from './MyEvents';
 function Home() {
     const [accessToken, setAccessToken] = useState(null);
     const [userInfo, setUserInfo] = useState(null);
+    const [relode,setRelode] =useState(false)
     const navigate = useNavigate(); 
 
     useEffect(() => {
 
         const hash = window.location.hash;
-
+        console.log("inside ",hash)
         let token = null;
 
         if (hash) {
             const params = new URLSearchParams(hash.substring(1)); 
             token = params.get('access_token'); 
+            console.log(token)
             if (token) {
                 localStorage.setItem("accessToken", token);
                 setAccessToken(token); 
@@ -42,6 +44,7 @@ function Home() {
             const response = await fetch('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=' + token);
             if (response.ok) {
                 const data = await response.json();
+                setAccessToken(token); 
                 storeToken(token); // Fetch and store user info
             } else {
                 console.error('Token is invalid or expired, redirecting to login...');
@@ -78,8 +81,8 @@ function Home() {
     return (
         <div>
             <h1>Home</h1>
-            <CreateEventPage/>
-            <MyEvents/>
+            <CreateEventPage relode={relode} setRelode={setRelode}/>
+           { accessToken && <MyEvents relode={relode} setRelode={setRelode}/>}
         </div>
     );
 }

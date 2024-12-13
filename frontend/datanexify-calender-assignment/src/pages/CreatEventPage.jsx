@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../Css/creatEventPage.css';
 import { useNavigate } from 'react-router-dom';
 
-function CreateEventPage() {
+function CreateEventPage({relode,setRelode}) {
     const [open, setOpen] = useState(false);
     const [eventData, setEventData] = useState({
         summary: '',
@@ -41,6 +41,7 @@ function CreateEventPage() {
                     endDateTime: '',
                 });
                 setOpen(false);
+                setRelode(!relode)
             } else {
                 const errorData = await response.json();
                 alert(`Failed to create event: ${errorData.message}`);
