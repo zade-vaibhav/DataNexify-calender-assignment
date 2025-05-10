@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import "../Css/MyEvents.css";
+import "../Css/myEvents.css";
 import { useNavigate } from "react-router-dom";
 
-function MyEvents({relode}) {
+function MyEvents({ relode }) {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [selectedEvent, setSelectedEvent] = useState(null);
     const [formVisible, setFormVisible] = useState(false);
-    
+
     const navigate = useNavigate();
 
     const fetchEvents = async () => {
@@ -17,7 +17,7 @@ function MyEvents({relode}) {
             setError("");
             const token = localStorage.getItem("accessToken");
 
-            const response = await fetch("http://localhost:5000/api/v1/user/getAllEvents", {
+            const response = await fetch("https://datanexify-calender-assignment.onrender.com/api/v1/user/getAllEvents", {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -41,7 +41,7 @@ function MyEvents({relode}) {
 
         try {
             const token = localStorage.getItem("accessToken");
-            const response = await fetch(`http://localhost:5000/api/v1/user/event/update/${eventData.id}`, {
+            const response = await fetch(`https://datanexify-calender-assignment.onrender.com/api/v1/user/event/update/${eventData.id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -82,8 +82,8 @@ function MyEvents({relode}) {
     const handleDelete = async (eventId) => {
         try {
             const token = localStorage.getItem("accessToken");
-            
-            const response = await fetch(`http://localhost:5000/api/v1/user/event/delete/${eventId}`, {
+
+            const response = await fetch(`https://datanexify-calender-assignment.onrender.com/api/v1/user/event/delete/${eventId}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${token}`, // Use your stored token
@@ -135,30 +135,30 @@ function MyEvents({relode}) {
                                     <td>{new Date(event.end.dateTime || event.end.date).toLocaleString()}</td>
                                     <td>
                                         <div className="btn-container">
-                                        <button
-                                            className="update-btn"
-                                            onClick={() => {
-                                                setSelectedEvent({
-                                                    id: event.id,
-                                                    summary: event.summary,
-                                                    startDateTime: new Date(event.start.dateTime || event.start.date).toISOString(),
-                                                    endDateTime: new Date(event.end.dateTime || event.end.date).toISOString(),
-                                                });
-                                                setFormVisible(true);
-                                            }}
-                                        >
-                                            Update
-                                        </button>
-                                        <button
-                                            className="delete-btn"
-                                            onClick={() => {
-                                                handleDelete(event.id)
-                                            }}
-                                        >
-                                            delete
-                                        </button>
+                                            <button
+                                                className="update-btn"
+                                                onClick={() => {
+                                                    setSelectedEvent({
+                                                        id: event.id,
+                                                        summary: event.summary,
+                                                        startDateTime: new Date(event.start.dateTime || event.start.date).toISOString(),
+                                                        endDateTime: new Date(event.end.dateTime || event.end.date).toISOString(),
+                                                    });
+                                                    setFormVisible(true);
+                                                }}
+                                            >
+                                                Update
+                                            </button>
+                                            <button
+                                                className="delete-btn"
+                                                onClick={() => {
+                                                    handleDelete(event.id)
+                                                }}
+                                            >
+                                                delete
+                                            </button>
                                         </div>
-                                        
+
                                     </td>
                                 </tr>
                             ))}
