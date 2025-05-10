@@ -32,7 +32,7 @@ function CreateEventPage({relode,setRelode}) {
             });
               
             const res= await response.json()
-            console.log(res)
+            // console.log(res)
             if (response.ok) {
                 alert('Event created successfully!');
                 setEventData({

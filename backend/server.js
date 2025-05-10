@@ -17,7 +17,7 @@ app.use("/api/v1/user", userRout)
 app.use(notFound)
 app.use(errorHandler)
 
-connnectdb() 
+connnectdb()
 
 app.listen(process.env.PORT, () => {
     console.log(`server is running on port ${process.env.PORT}`)

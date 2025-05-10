@@ -14,8 +14,8 @@ const editEvent = async (req, res) => {
   if (!summary || !startDateTime || !endDateTime) {
     return res.status(400).json({ message: 'All fields (summary, startDateTime, endDateTime) are required.' });
   }
-
-  try {
+ 
+  try { 
     const auth = new google.auth.OAuth2();
     auth.setCredentials({ access_token: token });
 

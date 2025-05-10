@@ -12,13 +12,13 @@ function Home() {
     useEffect(() => {
 
         const hash = window.location.hash;
-        console.log("inside ",hash)
+        // console.log("inside ",hash)
         let token = null;
 
         if (hash) {
             const params = new URLSearchParams(hash.substring(1)); 
             token = params.get('access_token'); 
-            console.log(token)
+            // console.log(token)
             if (token) {
                 localStorage.setItem("accessToken", token);
                 setAccessToken(token); 
@@ -68,7 +68,7 @@ function Home() {
             });
             if (response.ok) {
                 const data = await response.json();
-                console.log(data,"  hello")
+                // console.log(data,"  hello")
                 setUserInfo(data.user); // Store user info in state
             } else {
                 console.error('Failed to fetch user info:', response.statusText);

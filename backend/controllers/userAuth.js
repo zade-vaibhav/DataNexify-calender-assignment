@@ -18,7 +18,7 @@ const userAuth = async (req, res) => {
 
         // Extract the token after 'Bearer '
         const token = authHeader.split(' ')[1];
-        console.log("Token received:", token);
+        // console.log("Token received:", token);
 
         // Fetch user info from Google API
         const response = await fetch('https://www.googleapis.com/oauth2/v1/userinfo', {
@@ -29,7 +29,7 @@ const userAuth = async (req, res) => {
 
         if (response.ok) {
             const data = await response.json();
-            console.log("User data from Google:", data);
+            // console.log("User data from Google:", data);
 
             // Check if the user already exists in the database
             let user = await User.findOne({ email: data.email });
@@ -38,7 +38,7 @@ const userAuth = async (req, res) => {
                 // Update the user's access token
                 user.accessToken = token;
                 await user.save();
-                console.log("User updated in the database.");
+                // console.log("User updated in the database.");
             } else {
                 // Create a new user in the database
                 user = new User({
