@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import '../Css/creatEventPage.css';
 import { useNavigate } from 'react-router-dom';
 
-function CreateEventPage({relode,setRelode}) {
+function CreateEventPage({ relode, setRelode }) {
     const [open, setOpen] = useState(false);
     const [eventData, setEventData] = useState({
         summary: '',
         startDateTime: '',
         endDateTime: '',
     });
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -19,10 +19,10 @@ function CreateEventPage({relode,setRelode}) {
     const handleCreateEvent = async () => {
         try {
             const token = localStorage.getItem("accessToken")
-            if(!token){
-                navigate('/login'); 
+            if (!token) {
+                navigate('/login');
             }
-            const response = await fetch('http://localhost:5000/api/v1/user/creatEvent', {
+            const response = await fetch('https://datanexify-calender-assignment.onrender.com/api/v1/user/creatEvent', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -30,8 +30,8 @@ function CreateEventPage({relode,setRelode}) {
                 },
                 body: JSON.stringify(eventData),
             });
-              
-            const res= await response.json()
+
+            const res = await response.json()
             // console.log(res)
             if (response.ok) {
                 alert('Event created successfully!');

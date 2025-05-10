@@ -6,8 +6,8 @@ import MyEvents from './MyEvents';
 function Home() {
     const [accessToken, setAccessToken] = useState(null);
     const [userInfo, setUserInfo] = useState(null);
-    const [relode,setRelode] =useState(false)
-    const navigate = useNavigate(); 
+    const [relode, setRelode] = useState(false)
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -16,19 +16,19 @@ function Home() {
         let token = null;
 
         if (hash) {
-            const params = new URLSearchParams(hash.substring(1)); 
-            token = params.get('access_token'); 
+            const params = new URLSearchParams(hash.substring(1));
+            token = params.get('access_token');
             // console.log(token)
             if (token) {
                 localStorage.setItem("accessToken", token);
-                setAccessToken(token); 
-               
+                setAccessToken(token);
+
                 window.history.replaceState(null, null, window.location.pathname);
             }
         } else {
-            token = localStorage.getItem("accessToken"); 
+            token = localStorage.getItem("accessToken");
             if (!token) {
-                navigate('/login'); 
+                navigate('/login');
                 return;
             }
         }
@@ -44,7 +44,7 @@ function Home() {
             const response = await fetch('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=' + token);
             if (response.ok) {
                 const data = await response.json();
-                setAccessToken(token); 
+                setAccessToken(token);
                 storeToken(token); // Fetch and store user info
             } else {
                 console.error('Token is invalid or expired, redirecting to login...');
@@ -60,7 +60,7 @@ function Home() {
 
     const storeToken = async (token) => {
         try {
-            const response = await fetch('http://localhost:5000/api/v1/user/storeToken', {
+            const response = await fetch('https://datanexify-calender-assignment.onrender.com/api/v1/user/storeToken', {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -81,8 +81,8 @@ function Home() {
     return (
         <div>
             <h1>Home</h1>
-            <CreateEventPage relode={relode} setRelode={setRelode}/>
-           { accessToken && <MyEvents relode={relode} setRelode={setRelode}/>}
+            <CreateEventPage relode={relode} setRelode={setRelode} />
+            {accessToken && <MyEvents relode={relode} setRelode={setRelode} />}
         </div>
     );
 }
